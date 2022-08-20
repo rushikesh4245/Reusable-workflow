@@ -27,16 +27,16 @@ jobs:
       - name: Login to the Registry
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{secrets.registry_username}}
+          password: ${{secrets.registry_password}}
       
       - name: Set the tag
         run: |
-          if [ -z "${{ inputs.tag }}" ]
+          if [ -z "${{inputs.tag}}" ]
           then
             echo "final_tag=latest" >> $GITHUB_ENV
           else
-            echo "final_tag=${{ inputs.tag }}" >> $GITHUB_ENV
+            echo "final_tag=${{inputs.tag}}" >> $GITHUB_ENV
           fi
       
       - name: Build and Push the Image
@@ -44,7 +44,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.REGISTRY_USERNAME }}/${{ inputs.image_name }}:${{ env.final_tag }}
+          tags: ${{secrets.registry_username}}/${{inputs.image_name}}:${{env.final_tag}}
           
           
   do-something-else:
